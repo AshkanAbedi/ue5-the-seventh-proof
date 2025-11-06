@@ -8,8 +8,9 @@ public class TheSeventhProofEditorTarget : TargetRules
 	public TheSeventhProofEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
-		DefaultBuildSettings = BuildSettingsVersion.V2;
-
+		DefaultBuildSettings = BuildSettingsVersion.V5;
+		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_6;
+		CppStandard = CppStandardVersion.Cpp20;
 		ExtraModuleNames.AddRange( new string[] { "TheSeventhProof" } );
 	}
 }

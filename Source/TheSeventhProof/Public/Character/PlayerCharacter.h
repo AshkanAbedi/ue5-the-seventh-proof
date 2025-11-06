@@ -16,6 +16,7 @@
 
 #pragma region Forward Declarations
 
+class UInputMappingContext;
 class USpringArmComponent;
 class UCameraComponent;
 class UCineCameraComponent;
