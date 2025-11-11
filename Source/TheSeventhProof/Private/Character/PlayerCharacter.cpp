@@ -25,8 +25,6 @@ APlayerCharacter::APlayerCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 	GetCapsuleComponent()->SetCapsuleHalfHeight(80.f);
 	GetCapsuleComponent()->SetCapsuleRadius(32.f);
-	GetMesh()->bCastFarShadow = true;
-	GetMesh()->bCastVolumetricTranslucentShadow = true;
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Boom"));
 	CameraBoom->SetupAttachment(GetMesh());

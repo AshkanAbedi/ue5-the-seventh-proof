@@ -44,6 +44,8 @@ class THESEVENTHPROOF_API APlayerCharacter : public ACharacter
 
 public:
 	APlayerCharacter();
+	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
@@ -63,47 +65,70 @@ public:
 
 #pragma region Delegates
 	
-	UPROPERTY(BlueprintAssignable) FOnSeeingInteractable OnSeeingInteractableDelegate;
-	UPROPERTY(BlueprintAssignable) FOnInteracting OnInteractingDelegate;
-	UPROPERTY(BlueprintAssignable) FOnCancelInput OnCancelInputDelegate;
-	UPROPERTY(BlueprintAssignable) FOnItemAddedToInventory OnItemAddedToInventoryDelegate;
-	UPROPERTY(BlueprintAssignable) FOnInventoryInput OnInventoryInputDelegate;
+	UPROPERTY(BlueprintAssignable)
+	FOnSeeingInteractable OnSeeingInteractableDelegate;
+	UPROPERTY(BlueprintAssignable)
+	FOnInteracting OnInteractingDelegate;
+	UPROPERTY(BlueprintAssignable)
+	FOnCancelInput OnCancelInputDelegate;
+	UPROPERTY(BlueprintAssignable)
+	FOnItemAddedToInventory OnItemAddedToInventoryDelegate;
+	UPROPERTY(BlueprintAssignable)
+	FOnInventoryInput OnInventoryInputDelegate;
 	
 #pragma endregion Delegates
 
 #pragma region Main Components
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Camera") TObjectPtr<USpringArmComponent> CameraBoom;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Camera") TObjectPtr<UCameraComponent> MainCamera;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Camera") TObjectPtr<UCineCameraComponent> CineCamera;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Flash Light") TObjectPtr<USpotLightComponent> FlashLight;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "InspectableItem") TObjectPtr<USceneComponent> InspectableItem;
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Timeline") TObjectPtr<UTimelineComponent> TimelineComponent;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Post Process") TObjectPtr<UPostProcessComponent> PostProcessComponent;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player States") EPlayerState PlayerStates;
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Trace") TObjectPtr<AActor> TracedObject;
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Trace") TObjectPtr<AActor> InteractedObject;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Camera")
+	TObjectPtr<USpringArmComponent> CameraBoom;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Camera")
+	TObjectPtr<UCameraComponent> MainCamera;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Camera")
+	TObjectPtr<UCineCameraComponent> CineCamera;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Flash Light")
+	TObjectPtr<USpotLightComponent> FlashLight;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "InspectableItem")
+	TObjectPtr<USceneComponent> InspectableItem;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Timeline")
+	TObjectPtr<UTimelineComponent> TimelineComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Post Process")
+	TObjectPtr<UPostProcessComponent> PostProcessComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player States")
+	EPlayerState PlayerStates;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Trace")
+	TObjectPtr<AActor> TracedObject;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Trace")
+	TObjectPtr<AActor> InteractedObject;
 
 #pragma endregion Main Components
 
-protected:
-	virtual void BeginPlay() override;
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
-
 #pragma region Enhanced Input
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnhancedInput") TObjectPtr<UInputMappingContext> InputMappingContext;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput") TObjectPtr<UInputAction> InputMoveForward;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput") TObjectPtr<UInputAction> InputMoveBackward;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput") TObjectPtr<UInputAction> InputMoveRight;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput") TObjectPtr<UInputAction> InputMoveLeft;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput") TObjectPtr<UInputAction> InputLookAround;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput") TObjectPtr<UInputAction> InputLookUp;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput") TObjectPtr<UInputAction> InputFlashLight;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput") TObjectPtr<UInputAction> InputInventory;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput") TObjectPtr<UInputAction> InputInteract;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput") TObjectPtr<UInputAction> InputRotateItem;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput") TObjectPtr<UInputAction> InputCancel;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnhancedInput")
+	TObjectPtr<UInputMappingContext> InputMappingContext;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput")
+	TObjectPtr<UInputAction> InputMoveForward;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput")
+	TObjectPtr<UInputAction> InputMoveBackward;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput")
+	TObjectPtr<UInputAction> InputMoveRight;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput")
+	TObjectPtr<UInputAction> InputMoveLeft;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput")
+	TObjectPtr<UInputAction> InputLookAround;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput")
+	TObjectPtr<UInputAction> InputLookUp;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput")
+	TObjectPtr<UInputAction> InputFlashLight;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput")
+	TObjectPtr<UInputAction> InputInventory;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput")
+	TObjectPtr<UInputAction> InputInteract;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput")
+	TObjectPtr<UInputAction> InputRotateItem;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnhancedInput")
+	TObjectPtr<UInputAction> InputCancel;
 	
 #pragma endregion Enhanced Input
 	
@@ -121,8 +146,10 @@ protected:
 	void TraceTimer();
 	void Interact();
 	void Cancel();
-	UFUNCTION(BlueprintCallable) void OnCineCameraInitiate();
-	UFUNCTION(BlueprintCallable) void OnCineCameraEnd();
+	UFUNCTION(BlueprintCallable)
+	void OnCineCameraInitiate();
+	UFUNCTION(BlueprintCallable)
+	void OnCineCameraEnd();
 
 #pragma endregion Functions
 
@@ -131,7 +158,7 @@ protected:
 	float TraceTimerCount = 0.1;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Trace") float CameraTraceDistance;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Trace") double FloorTraceDistance;
-	TObjectPtr<UPhysicalMaterial> FloorPhysicalMaterial;
+	//TObjectPtr<UPhysicalMaterial> FloorPhysicalMaterial;
 	bool bHitSomething;
 	bool bHitFloor;
 	FHitResult HitResult;
@@ -143,18 +170,24 @@ protected:
 
 	friend class AItems;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory") TArray<AItems*> Inventory;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory") int32 InventoryCapacity;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory") int32 InventoryCount;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory") int32 InventoryIndex;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	TArray<AItems*> Inventory;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	int32 InventoryCapacity;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	int32 InventoryCount;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	int32 InventoryIndex;
 	
-	UFUNCTION(BlueprintCallable) void AddToInventory(AItems* Item);
+	UFUNCTION(BlueprintCallable)
+	void AddToInventory(AItems* Item);
 
 #pragma endregion Inventory
 
 #pragma region Inspection
 	
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Inspection") TObjectPtr<AInspectables> InspectedObject;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Inspection")
+	TObjectPtr<AInspectables> InspectedObject;
 
 #pragma endregion Inspection
 
